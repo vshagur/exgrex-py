@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 from distutils.core import setup
 from setuptools import find_packages
 
@@ -13,7 +14,7 @@ setup(name='exgrex',
       author='vshagur',
       author_email='vshagur@gmail.com',
       packages=find_packages(exclude=['tests', '*.test.*', '*.test', ]),
-      scripts=[],
+      scripts=["bin/exgrexCourseraPy",],
       keywords=['mooc', 'grader', 'python', 'python3', 'education', 'exgrex'],
       url='https://github.com/vshagur/exgrex-py',
       classifiers=[

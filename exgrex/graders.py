@@ -20,11 +20,11 @@ class UnittestGrader:
         self.totalTests = 0
         self.solutionFilename = 'solution.py'
         self.cwd = Path.cwd()
-        self.dirSubmission = Path(os.environ.get('DIR_SUBMISSION'))
-        self.testsDir = Path(os.environ.get('DEFAULT_TESTS_DIR'))
+        self.dirSubmission = Path(os.environ.get('EXGREX_DIR_SUBMISSION'))
+        self.testsDir = Path(os.environ.get('EXGREX_TESTS_DIR'))
         # логи
-        self.scoreLogFile = Path(self.cwd, os.environ.get('SCORE_LOGFILE'))
-        self.feedbackLogFile = Path(self.cwd, os.environ.get('FEEDBACK_LOGFILE'))
+        self.scoreLogFile = Path(self.cwd, os.environ.get('EXGREX_SCORE_LOGFILE'))
+        self.feedbackLogFile = Path(self.cwd, os.environ.get('EXGREX_FEEDBACK_LOGFILE'))
         # очистка логов
         for logFile in (self.scoreLogFile, self.feedbackLogFile):
             logFile.write_text('')
