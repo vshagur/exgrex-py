@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+# todo add script description
+
+########################################################################
+# Create and send report
+# Arguments:
+#   score - grade, number of points for solving the task
+#   feedback - comment to the solution: description of the test case, traceback
+#              errors, hint, etc.
+# Returns:
+#   None
+########################################################################
+function send_report {
+  local report
+  report=$(jq -n '{"fractionalScore":$fractionalScore, "feedback":$feedback}' \
+  --arg fractionalScore "$1" \
+  --arg feedback "$2")
+  echo "$report" > $EXGREX_PATH_TO_REPORT_FILE
+  exit 0
+}
+########################################################################
+# get settings
+########################################################################
+config='grader.config'
+
+if [[ ! -f $PWD/$config ]]; then
+  send_report 0 "Grader error. Grader configuration file not found. Please report the course staff."
+else
+  source $PWD/$config
+fi
+########################################################################
+# set environment variables
+########################################################################
+if [[ "DEBUG" -eq 0 ]]; then
+  export EXGREX_DIR_SUBMISSION=$DIR_SUBMISSION
+else
+  export EXGREX_DIR_SUBMISSION=$DEBUG_DIR_SUBMISSION
+fi
+
+if [[ "DEBUG" -eq 0 ]]; then
+  export EXGREX_PATH_TO_REPORT_FILE=$PATH_TO_REPORT_FILE
+else
+  export EXGREX_PATH_TO_REPORT_FILE=$DEBUG_PATH_TO_REPORT_FILE
+fi
+
+export EXGREX_SCORE_LOGFILE=$SCORE_LOGFILE
+export EXGREX_FEEDBACK_LOGFILE=$FEEDBACK_LOGFILE
+export EXGREX_TEST_RUN_COMMAND=$TEST_RUN_COMMAND
+export EXGREX_TESTS_DIR=$TESTS_DIR
+
+
+########################################################################
+# check partId
+########################################################################
+if [[ -z "${partId}" ]]; then
+  send_report 0 "Grader error. Environment variable partId is not set. Please report the course staff."
+fi
+
+#########################################################################
+# checking solution directory
+#########################################################################
+count_files=$(ls -1 $EXGREX_DIR_SUBMISSION | wc -l)
+
+if [[ "$count_files" -eq 0 ]]; then
+  send_report 0 "Solution file not found. Please attach the required file."
+elif [[ "$count_files" -ne 1 ]]; then
+  send_report 0 "Grader error. Multiple solution files found. Please report the course staff."
+fi
+
+########################################################################
+# check that the sub grader directory exists
+########################################################################
+if [[ -d $partId ]]; then
+  export EXGREX_DIR_GRADER=$PWD/$partId
+else
+  send_report 0 "Grader error. No partId matched. Please report the course staff."
+fi
+
+########################################################################
+# check student solution
+########################################################################
+cd $EXGREX_DIR_GRADER
+# todo remake error stream output to file
+$EXGREX_TEST_RUN_COMMAND > /dev/null 2>&1
+
+########################################################################
+# create report
+########################################################################
+if [[ $? -eq 0 ]]; then
+  # todo add file existence check
+  fractionalScore=$(<$EXGREX_SCORE_LOGFILE)
+  feedback=$(<$EXGREX_FEEDBACK_LOGFILE)
+  send_report "$fractionalScore" "$feedback"
+else
+  # todo add an error message to the output
+  send_report 0 "Grader error. Runtime error occured. Please report the course staff."
+fi
+
+exit 0
