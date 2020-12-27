@@ -24,7 +24,8 @@ function send_report {
 config='grader.config'
 
 if [[ ! -f $PWD/$config ]]; then
-  send_report 0 "Grader error. Grader configuration file not found. Please report the course staff."
+  echo "Grader error. Grader configuration file not found. Please report the course staff."
+  exit 1
 else
   source $PWD/$config
 fi
