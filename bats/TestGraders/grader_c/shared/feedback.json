@@ -1,0 +1,4 @@
+{
+  "fractionalScore": "1.0",
+  "feedback": "======================================================================\nTest result of the task: \"Example task.\"\nAttempt at Sun Dec 27 23:36:03 2020.\n======================================================================\n[PASSED] test_summa.TestSumma.test_1. short description for test_1\n======================================================================\nCongratulations! All tests passed!"
+}
