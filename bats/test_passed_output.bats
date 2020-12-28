@@ -18,6 +18,8 @@ teardown() {
 @test "check output all test passed (failfast=False, traceback=True, verbosity=2)" {
   # check output for testcase - all tests passed for verbosity=2
   PART_ID="ABCD"
+  # delete the contents of the report file
+  echo "" > $REPORT
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
@@ -44,6 +46,8 @@ teardown() {
 @test "check output all test passed (failfast=False, traceback=True, verbosity=1)" {
   # check output for testcase - all tests passed for verbosity=1
   PART_ID="ABCE"
+  # delete the contents of the report file
+  echo "" > $REPORT
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
@@ -69,6 +73,8 @@ teardown() {
 @test "check output all test passed (failfast=False, traceback=True, verbosity=0)" {
   # check output for testcase - all tests passed for verbosity=0
   PART_ID="ABCF"
+  # delete the contents of the report file
+  echo "" > $REPORT
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
