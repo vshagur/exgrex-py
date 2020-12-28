@@ -10,7 +10,7 @@ from exgrex.result import LogTestResult
 @CheckSubmissionFilename('solution.py')
 @CopySolutionFile()
 @RunUnittestTests(
-    test_result_class=LogTestResult, failfast=False, traceback=True, verbosity=2,
+    test_result_class=LogTestResult, failfast=False, traceback=True, verbosity=0,
     pass_rate=0.6
 )
 def executeGrader(grader):
