@@ -1,7 +1,6 @@
 import sys
 
-from exgrex.decorators import (CheckSubmissionFilename,
-                               CopySolutionFile,
+from exgrex.decorators import (CopySolutionFile,
                                RunUnittestTests)
 from exgrex.graders import UnittestGrader
 from exgrex.result import LogTestResult
