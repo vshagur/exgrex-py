@@ -20,5 +20,3 @@ teardown() {
   [ "$output" = "Grader error. Grader configuration file not found. Please report the course staff." ]
   [ "$status" = 1 ]
 }
-
-

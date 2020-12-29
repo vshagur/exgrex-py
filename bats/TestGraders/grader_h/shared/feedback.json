@@ -1,4 +1,4 @@
 {
   "fractionalScore": "0",
-  "feedback": "Grader error. Error copying solution file.\n[Errno 13] Permission denied: '/home/ququshka77/Desktop/PROJECTS/exgrex-py/bats/TestGraders/grader_h/ABCH/some_dir/some_file.py'"
+  "feedback": "Grader error. No tests loaded. Please report to course staff."
 }

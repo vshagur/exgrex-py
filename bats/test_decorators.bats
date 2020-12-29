@@ -21,10 +21,10 @@ teardown() {
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
-  #  check score string
+  # check score string
   [ ${lines[1]} = '  "fractionalScore": "0",' ]
   # check title
-  run bash -c "grep -E \"Error\. Invalid solution file name: solution\.py\. The file must be named solution_name\.py\.\" $REPORT"
+  run bash -c "grep -E \"Error. Invalid solution file name: solution.py. The file must be named solution_name.py.\" $REPORT"
   [ "$status" = 0 ]
 }
 
@@ -37,9 +37,9 @@ teardown() {
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
-  #  check score string
+  # check score string
   [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
-#  check file created
+  # check file created
   [ -f $PWD/$PART_ID/tests/solution.py ]
   # check content
   run cmp -s $PWD/$PART_ID/tests/solution.py $PWD/shared/submission/solution.py
@@ -65,14 +65,28 @@ teardown() {
   chmod 555 $PWD/$PART_ID/some_dir
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
-  #  check score string
+  # check score string
   run bash -c "cat $REPORT"
   [ ${lines[1]} = '  "fractionalScore": "0",' ]
   # check file not created
   [ ! -f $PWD/$PART_ID/some_dir/some_file.py ]
   # check title
-  run bash -c "grep -E \"Grader error\. Error copying solution file\.\" $REPORT"
+  run bash -c "grep -E \"Grader error. Error copying solution file.\" $REPORT"
   [ "$status" = 0 ]
   run bash -c "grep -E \"\[Errno 13\] Permission denied: \" $REPORT"
+  [ "$status" = 0 ]
+}
+
+@test "check decorator RunUnittestTests (No tests loaded)" {
+  PART_ID="ABCJ"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  # check title
+  run bash -c "grep -E \"Grader error. No tests loaded. Please report to course staff.\" $REPORT"
   [ "$status" = 0 ]
 }

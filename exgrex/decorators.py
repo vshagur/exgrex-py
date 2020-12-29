@@ -11,7 +11,9 @@ def _getTestSuite(grader):
     suite = loader.discover(Path(grader.cwd, grader.testsDir))
 
     if not suite.countTestCases():
-        grader.abortExecution('Grader error. No tests loaded.')
+        grader.abortExecution(
+            'Grader error. No tests loaded. Please report to course staff.'
+        )
 
     return suite
 
@@ -59,11 +61,11 @@ class GlueFiles:
             # get solution content
             try:
                 source = next(grader.dirSubmission.iterdir())
-                basePart =  source.read_text()
+                basePart = source.read_text()
             except BaseException as err:
-                    grader.abortExecution(
-                        f'Grader error. Problems getting content from a solution file.'
-                    )
+                grader.abortExecution(
+                    f'Grader error. Problems getting content from a solution file.'
+                )
 
             # get postfix file content
             if self.postfixFilePath is None:
@@ -84,7 +86,7 @@ class GlueFiles:
 
             # save content to file
             solutionPath = Path(self.pathTo, self.filename)
-            newContent = '\n'.join((prefixPart,basePart,postfixPart))
+            newContent = '\n'.join((prefixPart, basePart, postfixPart))
             solutionPath.write_text(newContent)
 
             return func(grader)
@@ -159,19 +161,13 @@ class RunUnittestTests:
         def wrapper(grader):
             unittest.TestCase.longMessage = self.traceback
             suite = _getTestSuite(grader)
-            totalTests = suite.countTestCases()
-
-            if not totalTests:
-                grader.abortExecution(
-                    'Grader error. No tests loaded. Please report to course staff.'
-                )
 
             result = self.testResultClass(
                 grader.feedbackLogger,
                 grader.scoreLogger,
                 verbosity=self.verbosity,
                 failfast=self.failfast,
-                total_tests=totalTests,
+                total_tests=suite.countTestCases(),
                 pass_rate=self.passRate
             )
             grader.feedbackLogger.error(result.separator)

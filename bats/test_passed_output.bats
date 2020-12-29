@@ -23,21 +23,21 @@ teardown() {
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
-  #  check score string
+  # check score string
   [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]
-  #  check descriptions
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_1\. short description for test_1\" $REPORT"
+  # check descriptions
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_1. short description for test_1\" $REPORT"
   [ "$status" = 0 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_4\. short description for test_4\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_4. short description for test_4\" $REPORT"
   [ "$status" = 0 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_5\. short description for test_5\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_5. short description for test_5\" $REPORT"
   [ "$status" = 0 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_8\. short description for test_8\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_8. short description for test_8\" $REPORT"
   [ "$status" = 0 ]
-  #  check result message
+  # check result message
   run bash -c "grep 'Congratulations! All tests passed!' $REPORT"
   [ "$status" = 0 ]
 }
@@ -51,21 +51,21 @@ teardown() {
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
-  #  check score string
+  # check score string
   [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]
-  #  check descriptions not exist
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_1\. short description for test_1\" $REPORT"
+  # check descriptions not exist
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_1. short description for test_1\" $REPORT"
   [ "$status" = 1 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_4\. short description for test_4\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_4. short description for test_4\" $REPORT"
   [ "$status" = 1 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_5\. short description for test_5\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_5. short description for test_5\" $REPORT"
   [ "$status" = 1 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_8\. short description for test_8\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_8. short description for test_8\" $REPORT"
   [ "$status" = 1 ]
-  #  check result message
+  # check result message
   run bash -c "grep 'Congratulations! All tests passed!' $REPORT"
   [ "$status" = 0 ]
 }
@@ -78,21 +78,21 @@ teardown() {
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
-  #  check score string
+  # check score string
   [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]
-  #  check descriptions not exist
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_1\. short description for test_1\" $REPORT"
+  # check descriptions not exist
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_1. short description for test_1\" $REPORT"
   [ "$status" = 1 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_4\. short description for test_4\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_4. short description for test_4\" $REPORT"
   [ "$status" = 1 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_5\. short description for test_5\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_5. short description for test_5\" $REPORT"
   [ "$status" = 1 ]
-  run bash -c "grep -E  \"\[PASSED\] test_summa\.TestSumma\.test_8\. short description for test_8\" $REPORT"
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_8. short description for test_8\" $REPORT"
   [ "$status" = 1 ]
-  #  check result message
+  # check result message
   run bash -c "grep 'Congratulations! All tests passed!' $REPORT"
   [ "$status" = 0 ]
 }

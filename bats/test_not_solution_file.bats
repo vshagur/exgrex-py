@@ -21,7 +21,7 @@ teardown() {
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
-  #  check score string
+  # check score string
   [ ${lines[1]} = '  "fractionalScore": "0",' ]
   # check feedback string
   [ ${lines[2]} = '  "feedback": "Solution file not found. Please attach the required file."' ]
