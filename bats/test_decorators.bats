@@ -28,3 +28,20 @@ teardown() {
   [ "$status" = 0 ]
 }
 
+@test "check decorator CopySolutionFile" {
+  PART_ID="ABCE"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  # delete destination file
+  rm $PWD/$PART_ID/tests/solution.py
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  #  check score string
+  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+#  check file created
+  [ -f $PWD/$PART_ID/tests/solution.py ]
+  # check content
+  run cmp -s $PWD/$PART_ID/tests/solution.py $PWD/shared/submission/solution.py
+  [ "$status" = 0 ]
+}
