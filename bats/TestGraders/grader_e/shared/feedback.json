@@ -1,0 +1,4 @@
+{
+  "fractionalScore": "",
+  "feedback": "EXGREX_DIR_SUBMISSION=/home/ququshka77/Desktop/PROJECTS/exgrex-py/bats/TestGraders/grader_e/shared/submission\nEXGREX_PATH_TO_REPORT_FILE=/home/ququshka77/Desktop/PROJECTS/exgrex-py/bats/TestGraders/grader_e/shared/feedback.json\nEXGREX_SCORE_LOGFILE=score.log\nEXGREX_FEEDBACK_LOGFILE=feedback.log\nEXGREX_TEST_RUN_COMMAND=python3 execute.py\nEXGREX_TESTS_DIR=tests/"
+}
