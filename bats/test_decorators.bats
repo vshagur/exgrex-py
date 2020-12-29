@@ -58,3 +58,21 @@ teardown() {
   run cmp -s $PWD/$PART_ID/some_dir/some_file.py $PWD/shared/submission/solution.py
   [ "$status" = 0 ]
 }
+
+@test "check decorator CopySolutionFile (Error copying solution file)" {
+  PART_ID="ABCH"
+  # disable writing to the directory
+  chmod 555 $PWD/$PART_ID/some_dir
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  #  check score string
+  run bash -c "cat $REPORT"
+  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  # check file not created
+  [ ! -f $PWD/$PART_ID/some_dir/some_file.py ]
+  # check title
+  run bash -c "grep -E \"Grader error\. Error copying solution file\.\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E \"\[Errno 13\] Permission denied: \" $REPORT"
+  [ "$status" = 0 ]
+}
