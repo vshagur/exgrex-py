@@ -28,7 +28,7 @@ teardown() {
   [ "$status" = 0 ]
 }
 
-@test "check decorator CopySolutionFile" {
+@test "check decorator CopySolutionFile (default)" {
   PART_ID="ABCE"
   # delete the contents of the report file
   echo "" > $REPORT
@@ -43,5 +43,18 @@ teardown() {
   [ -f $PWD/$PART_ID/tests/solution.py ]
   # check content
   run cmp -s $PWD/$PART_ID/tests/solution.py $PWD/shared/submission/solution.py
+  [ "$status" = 0 ]
+}
+
+@test "check decorator CopySolutionFile (pathTo='some_dir', filename='some_file.py')" {
+  PART_ID="ABCF"
+  # delete destination file
+  rm -rf $PWD/$PART_ID/some_dir
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  # check file created
+  [ -f $PWD/$PART_ID/some_dir/some_file.py ]
+  # check content
+  run cmp -s $PWD/$PART_ID/some_dir/some_file.py $PWD/shared/submission/solution.py
   [ "$status" = 0 ]
 }
