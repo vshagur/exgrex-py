@@ -6,13 +6,15 @@
 todo сделать возможным многострочный вывод docstring
 2. отключение трейсбек - вариант 1: в тестовом классе установить атрибут класса
 longMessage = False, вариант 2: в декораторе RunUnittestTests передать traceback=True
-3. параметр failfast - остановить выполнение тестов на первом упавшем или с ошибкой
+3. параметр failfast - остановить выполнение тестов на первом упавшем или с ошибкой,
+если True, то значение pass_rate игнорируется (необходимо чтобы все тесты были зеленые)
 4. нет поддержки частичной оценки, score может принимать значения 0 или 1
 5 verbosity=0, выводится название теста + shortDescription
 verbosity=1, выводится название теста + shortDescription + сообщение об ошибке
 (message из assert + трейсбек, если включен)
 verbosity=2, для каждого запущенного теста выводится название теста + shortDescription
 + сообщение об ошибке (message из assert + трейсбек, если включен)
+
 """
 from unittest.result import TestResult, failfast
 from decimal import Decimal, ROUND_DOWN
@@ -58,7 +60,7 @@ class LogTestResult(TestResult):
 
     def __init__(self, feedback_logger, score_logger, verbosity=1, failfast=True,
                  total_tests=None, pass_rate=None, **kwargs):
-        # TODO: сделать total_tests обязательным
+        # TODO: сделать total_tests обязательным параметром
         # created vshagur@gmail.com, 2020-12-18
         super().__init__(**kwargs)
         self.feedbackLogger = feedback_logger
@@ -128,6 +130,16 @@ class LogTestResult(TestResult):
         # The hasattr check is for test_result's OldResult test.  That
         # way this method works on objects that lack the attribute.
         # (where would such result intances come from? old stored pickles?)
+
+        if self.failfast:
+            if len(self.failures) + len(self.errors) == 0:
+                self.feedbackLogger.error('Congratulations! All tests passed!')
+                self.scoreLogger.error(1.00)
+                return True
+            else:
+                self.feedbackLogger.error(f'Not passed. Try again.')
+                self.scoreLogger.error(0)
+                return False
 
         incorrect = len(self.failures) + len(self.errors)
         success = (self.totalTests - incorrect) / self.totalTests
