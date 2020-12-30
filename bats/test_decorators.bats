@@ -90,3 +90,54 @@ teardown() {
   run bash -c "grep -E \"Grader error. No tests loaded. Please report to course staff.\" $REPORT"
   [ "$status" = 0 ]
 }
+
+@test "check decorator RunUnittestTests (passed test: 0.5, pass_rate: 0.5)" {
+  PART_ID="ABCK"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+  # check title
+  run bash -c "grep -E \"Passed. Score: 50 points out of 100.\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E \"You have scored the required number of points to pass the test.\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E \"If you want, you can try to take the test again and get a higher grade.\" $REPORT"
+  [ "$status" = 0 ]
+}
+
+@test "check decorator RunUnittestTests (passed test: 0.44, pass_rate: 0.45)" {
+  PART_ID="ABCL"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "0.44",' ]
+  # check title
+  run bash -c "grep -E \"Not passed. Score: 44 points out of 100.\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E \"To pass the test, you need to score 45 points.\" $REPORT"
+  [ "$status" = 0 ]
+}
+
+
+@test "check decorator RunUnittestTests (failfast=True)" {
+  PART_ID="ABCM"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  # check title
+  run bash -c "grep -E \"Not passed. Try again\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E \"\[FAILED\] test_summa.TestSumma.test_9. short description for test_9\" $REPORT"
+  [ "$status" = 0 ]
+}

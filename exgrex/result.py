@@ -166,7 +166,8 @@ class LogTestResult(TestResult):
                 f'If you want, you can try to take the test again and get a higher grade.'
             )
             # для совместимости с платформами, которые не поддерживают оценку с проходным
-            # баллом, score устанавливается в 1.00
+            # баллом, score устанавливается в 1.00 (некоторые платформы имеют систему
+            # оценки - 1:задание пройдено, <1 не пройдено)
             self.scoreLogger.error(1.00)
             return False
         else:
