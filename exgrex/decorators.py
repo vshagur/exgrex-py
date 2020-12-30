@@ -18,7 +18,10 @@ def _getTestSuite(grader):
     return suite
 
 
+
 class GlueFiles:
+    # TODO: дописать реализацию
+    # created vshagur@gmail.com, 2020-12-30
     def __init__(self, prefix_file_path=None, postfix_file_path=None, path_to=None,
                  filename=None):
         self.prefixFilePath = prefix_file_path
@@ -186,3 +189,14 @@ class RunUnittestTests:
             return func(grader)
 
         return wrapper
+
+# TODO: добавить декоратор add_solution_as_module (подумать нужен ли он)
+# created vshagur@gmail.com, 2020-12-30
+# TODO: добавить декоратор, проверяющий возможность импорта решения, как модуля (подумать нужен ли он)
+# created vshagur@gmail.com, 2020-12-30
+# TODO: добавить декоратор, проверяющий, что файл решения является zip архивом
+# created vshagur@gmail.com, 2020-12-30
+# TODO: добавить декоратор, проверяющий наличие нужных файлов в zip архиве решения
+# created vshagur@gmail.com, 2020-12-30
+# TODO: добавить декоратор, распаковывающий zip архив решения
+# created vshagur@gmail.com, 2020-12-30
