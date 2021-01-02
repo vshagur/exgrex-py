@@ -18,6 +18,23 @@ def _getTestSuite(grader):
     return suite
 
 
+def _get_content(grader, path):
+    if path is None:
+        return ''
+
+    pathToFile = Path(grader.cwd, path)
+
+    if not pathToFile.exists() or not pathToFile.is_file():
+        grader.abortExecution(f'Grader error. Invalid file path passed for {path}.')
+
+    try:
+        content = pathToFile.read_text() + '\n'
+        return content
+    except BaseException as err:
+        grader.abortExecution(
+            f'Grader error. Problems getting content from a file: {path}. {err}.'
+        )
+
 
 class GlueFiles:
     # TODO: дописать реализацию
@@ -39,57 +56,16 @@ class GlueFiles:
             if self.filename is None:
                 self.filename = grader.solutionFilename
 
-            # set full path and create if not exist
             self.pathTo = Path(grader.cwd, self.pathTo)
             self.pathTo.mkdir(parents=True, exist_ok=True)
 
-            # get prefix file content
+            prefixContent = _get_content(grader, self.prefixFilePath)
+            solutionPath = grader.dirSubmission.iterdir()
+            solutionContent = _get_content(grader, next(solutionPath))
+            postfixContent = _get_content(grader, self.postfixFilePath)
 
-            if self.prefixFilePath is None:
-                prefixPart = ''
-            else:
-                self.prefixFilePath = Path(grader.cwd, self.prefixFilePath)
-                if not self.prefixFilePath.exists() or not self.prefixFilePath.is_file():
-                    grader.abortExecution(
-                        f'Grader error. Problems with the prefix file.'
-                    )
-
-                try:
-                    prefixPart = self.prefixFilePath.read_text()
-                except BaseException as err:
-                    grader.abortExecution(
-                        f'Grader error. Problems getting content from a prefix file.'
-                    )
-
-            # get solution content
-            try:
-                source = next(grader.dirSubmission.iterdir())
-                basePart = source.read_text()
-            except BaseException as err:
-                grader.abortExecution(
-                    f'Grader error. Problems getting content from a solution file.'
-                )
-
-            # get postfix file content
-            if self.postfixFilePath is None:
-                postfixPart = ''
-            else:
-                self.postfixFilePath = Path(grader.cwd, self.postfixFilePath)
-                if not self.postfixFilePath.exists() and not self.postfixFilePath.is_file():
-                    grader.abortExecution(
-                        f'Grader error. Problems with the postfix file.'
-                    )
-
-                try:
-                    postfixPart = self.postfixFilePath.read_text()
-                except BaseException as err:
-                    grader.abortExecution(
-                        f'Grader error. Problems getting content from a postfix file.'
-                    )
-
-            # save content to file
             solutionPath = Path(self.pathTo, self.filename)
-            newContent = '\n'.join((prefixPart, basePart, postfixPart))
+            newContent = ''.join((prefixContent, solutionContent, postfixContent))
             solutionPath.write_text(newContent)
 
             return func(grader)

@@ -125,7 +125,6 @@ teardown() {
   [ "$status" = 0 ]
 }
 
-
 @test "check decorator RunUnittestTests (failfast=True)" {
   PART_ID="ABCM"
   # delete the contents of the report file
@@ -140,4 +139,72 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "grep -E \"\[FAILED\] test_summa.TestSumma.test_9. short description for test_9\" $REPORT"
   [ "$status" = 0 ]
+}
+
+
+@test "check decorator GlueFiles (prefile not exist)" {
+  PART_ID="ABCN"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  # clear solution file
+  echo '' > $PWD/$PART_ID/tests/solution.py
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  run bash -c "grep -E \"Grader error. Invalid file path passed for before.txt.\" $REPORT"
+  [ "$status" = 0 ]
+}
+
+@test "check decorator GlueFiles (postfile not exist)" {
+  PART_ID="ABCP"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  # clear solution file
+  echo '' > $PWD/$PART_ID/tests/solution.py
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  run bash -c "grep -E \"Grader error. Invalid file path passed for after.txt.\" $REPORT"
+  [ "$status" = 0 ]
+}
+
+@test "check decorator GlueFiles (the content of the solution file is correct)" {
+  PART_ID="ABCS"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  # clear solution file
+  echo '' > $PWD/$PART_ID/tests/solution.py
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+  # check content solution file
+  run bash -c "cat $PWD/$PART_ID/tests/solution.py"
+  [ ${lines[0]} = '# before.txt' ]
+  [ ${lines[1]} = 'def summa(x, y):' ]
+  [ ${lines[2]} = '    return x + y' ]
+  [ ${lines[3]} = '# after.txt' ]
+}
+
+@test "check decorator GlueFiles (the path to solution file is not default)" {
+  PART_ID="ABCT"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  # delete new solution dir
+  rm -f $PWD/$PART_ID/new_dir/new_solution.py
+  if [ -d $PWD/$PART_ID/new_dir ]; then
+   rmdir -F $PWD/$PART_ID/new_dir/
+  fi
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # the solution file is exist
+  [ -f $PWD/$PART_ID/new_dir/new_solution.py ]
+  # check content solution file
+  run bash -c "cat $PWD/$PART_ID/new_dir/new_solution.py"
+  [ ${lines[0]} = '# before.txt' ]
+  [ ${lines[1]} = 'def summa(x, y):' ]
+  [ ${lines[2]} = '    return x + y' ]
+  [ ${lines[3]} = '# after.txt' ]
 }

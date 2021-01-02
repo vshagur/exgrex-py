@@ -1,0 +1,4 @@
+{
+  "fractionalScore": "1.0",
+  "feedback": "======================================================================\nTest result of the task: \"Example task.\"\nAttempt at Sat Jan  2 10:02:09 2021.\n======================================================================\n[FAILED] test_summa.TestSumma.test_2. short description for test_2\n======================================================================\n[ERROR] test_summa.TestSumma.test_3. short description for test_3\n======================================================================\nPassed. Score: 50 points out of 100. \nYou have scored the required number of points to pass the test.\nIf you want, you can try to take the test again and get a higher grade."
+}
