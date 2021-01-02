@@ -1,3 +1,4 @@
+import zipfile
 from functools import wraps
 from pathlib import Path
 import unittest
@@ -36,9 +37,36 @@ def _get_content(grader, path):
         )
 
 
+class CheckZipArchive:
+    def __init__(self, filenames=None):
+        if filenames is None:
+            self.filenames = []
+        else:
+            self.filenames = filenames
+
+    def __call__(self, func):
+        @wraps(func)
+        def wrapper(grader):
+            solutionPath = next(grader.dirSubmission.iterdir())
+
+            if not zipfile.is_zipfile(solutionPath):
+                grader.abortExecution('Grader Error. Submission should be zip archive.')
+
+            archive = zipfile.ZipFile(solutionPath, 'r')
+
+            for filename in self.filenames:
+                if filename not in archive.namelist():
+                    grader.abortExecution(
+                        f'Grader Error. The solution archive should contain '
+                        f'the file: {filename}.'
+                    )
+
+            return func(grader)
+
+        return wrapper
+
+
 class GlueFiles:
-    # TODO: дописать реализацию
-    # created vshagur@gmail.com, 2020-12-30
     def __init__(self, prefix_file_path=None, postfix_file_path=None, path_to=None,
                  filename=None):
         self.prefixFilePath = prefix_file_path
@@ -169,10 +197,6 @@ class RunUnittestTests:
 # TODO: добавить декоратор add_solution_as_module (подумать нужен ли он)
 # created vshagur@gmail.com, 2020-12-30
 # TODO: добавить декоратор, проверяющий возможность импорта решения, как модуля (подумать нужен ли он)
-# created vshagur@gmail.com, 2020-12-30
-# TODO: добавить декоратор, проверяющий, что файл решения является zip архивом
-# created vshagur@gmail.com, 2020-12-30
-# TODO: добавить декоратор, проверяющий наличие нужных файлов в zip архиве решения
 # created vshagur@gmail.com, 2020-12-30
 # TODO: добавить декоратор, распаковывающий zip архив решения
 # created vshagur@gmail.com, 2020-12-30

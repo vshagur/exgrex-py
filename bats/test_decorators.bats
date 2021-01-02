@@ -194,7 +194,7 @@ teardown() {
   # delete new solution dir
   rm -f $PWD/$PART_ID/new_dir/new_solution.py
   if [ -d $PWD/$PART_ID/new_dir ]; then
-   rmdir -F $PWD/$PART_ID/new_dir/
+    rmdir $PWD/$PART_ID/new_dir/
   fi
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
@@ -207,4 +207,18 @@ teardown() {
   [ ${lines[1]} = 'def summa(x, y):' ]
   [ ${lines[2]} = '    return x + y' ]
   [ ${lines[3]} = '# after.txt' ]
+}
+
+@test "check decorator CheckZipArchive (solution file is not zip archive)" {
+  PART_ID="ABCQ"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  # check message
+  run bash -c "grep -E \"Grader Error. Submission should be zip archive.\" $REPORT"
+  [ "$status" = 0 ]
 }
