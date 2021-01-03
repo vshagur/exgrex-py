@@ -61,6 +61,15 @@ elif [[ "$count_files" -ne 1 ]]; then
 fi
 
 ########################################################################
+# check that the solution file is not empty
+########################################################################
+filenames=$(ls -1 $EXGREX_DIR_SUBMISSION)
+if [[ "filenames" -ne 0 ]]; then
+  send_report 0 "Grader error. Empty file uploaded. Please attach a file with your solution."
+  exit 0
+fi
+
+########################################################################
 # check partId
 ########################################################################
 if [[ -z "${partId}" ]]; then
@@ -77,7 +86,7 @@ else
 fi
 
 ########################################################################
-# check student solution
+# start testing student solution
 ########################################################################
 cd $EXGREX_DIR_GRADER
 # todo remake error stream output to file
@@ -97,4 +106,3 @@ else
 fi
 
 exit 0
-# todo add check solutions file is not empty

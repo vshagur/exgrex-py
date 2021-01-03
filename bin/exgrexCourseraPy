@@ -103,7 +103,6 @@ if [[ $? -eq 0 ]]; then
 else
   # todo add an error message to the output
   send_report 0 "Grader error. Runtime error occured. Please report the course staff."
-  echo here
 fi
 
 exit 0
