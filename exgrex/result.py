@@ -112,7 +112,6 @@ class LogTestResult(TestResult):
 
             self.feedbackLogger.error(self.separator)
             self.feedbackLogger.error(message)
-            # TODO: проверить трейсбек при падении тестов в подтестах
 
         if not alreadyFailOrError:
             super().addSubTest(test, subtest, err)
