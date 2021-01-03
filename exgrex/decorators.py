@@ -5,6 +5,7 @@ import unittest
 import shutil
 from exgrex.result import LogTestResult
 from datetime import datetime
+import importlib.util
 
 
 def _getTestSuite(grader):
@@ -35,6 +36,31 @@ def _get_content(grader, path):
         grader.abortExecution(
             f'Grader error. Problems getting content from a file: {path}. {err}.'
         )
+
+
+class CheckFileAsModule:
+    def __init__(self, path_to_module):
+        self.pathToModule = Path(path_to_module)
+
+    def __call__(self, func):
+        @wraps(func)
+        def wrapper(grader):
+            moduleName = 'solution'
+            pathToModule = Path(grader.cwd, self.pathToModule)
+            spec = importlib.util.spec_from_file_location(moduleName, pathToModule)
+            module = importlib.util.module_from_spec(spec)
+
+            try:
+                spec.loader.exec_module(module)
+            except Exception as err:
+                grader.abortExecution(
+                    f'Grader Error. An attempt to import the solution file as '
+                    f'a module failed. Error: {err}.'
+                )
+
+            return func(grader)
+
+        return wrapper
 
 
 class ExtractFromZip:
@@ -232,6 +258,4 @@ class RunUnittestTests:
 # TODO: добавить декоратор add_solution_as_module (подумать нужен ли он)
 # created vshagur@gmail.com, 2020-12-30
 # TODO: добавить декоратор, проверяющий возможность импорта решения, как модуля (подумать нужен ли он)
-# created vshagur@gmail.com, 2020-12-30
-# TODO: добавить декоратор, распаковывающий zip архив решения
 # created vshagur@gmail.com, 2020-12-30

@@ -83,7 +83,7 @@ teardown() {
   [ -d $PWD/$PART_ID/new_dir ]
   [ -f $PWD/$PART_ID/new_dir/solution.py ]
   [ -f $PWD/$PART_ID/new_dir/solution1.py ]
-  # check content solution file
+  # check content solution files
   run bash -c "cat $PWD/$PART_ID/new_dir/solution.py"
   [ ${lines[0]} = 'def summa(x, y):' ]
   [ ${lines[1]} = '    return x + y' ]
