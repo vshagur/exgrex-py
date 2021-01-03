@@ -254,8 +254,3 @@ class RunUnittestTests:
             return func(grader)
 
         return wrapper
-
-# TODO: добавить декоратор add_solution_as_module (подумать нужен ли он)
-# created vshagur@gmail.com, 2020-12-30
-# TODO: добавить декоратор, проверяющий возможность импорта решения, как модуля (подумать нужен ли он)
-# created vshagur@gmail.com, 2020-12-30

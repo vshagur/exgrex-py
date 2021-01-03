@@ -96,3 +96,31 @@ teardown() {
   run bash -c "grep 'Congratulations! All tests passed!' $REPORT"
   [ "$status" = 0 ]
 }
+
+@test "check output all test passed (with CheckFileAsModule decorators)" {
+  # check output for testcase - all tests passed for verbosity=2
+  PART_ID="ABCG"
+  # delete the contents of the report file
+  echo "" > $REPORT
+  run bash -c "env partId=$PART_ID $COMMAND"
+  [ "$status" = 0 ]
+  run bash -c "cat $REPORT"
+  # check score string
+  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+  # check title
+  run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
+  [ "$status" = 0 ]
+  # check descriptions
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_1. short description for test_1\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_4. short description for test_4\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_5. short description for test_5\" $REPORT"
+  [ "$status" = 0 ]
+  run bash -c "grep -E  \"\[PASSED\] test_summa.TestSumma.test_8. short description for test_8\" $REPORT"
+  [ "$status" = 0 ]
+  # check result message
+  run bash -c "grep 'Congratulations! All tests passed!' $REPORT"
+  [ "$status" = 0 ]
+}
+
