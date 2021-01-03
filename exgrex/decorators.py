@@ -37,6 +37,41 @@ def _get_content(grader, path):
         )
 
 
+class ExtractFromZip:
+    def __init__(self, filenames=None, path_to=None):
+        self.filenames = filenames
+        self.pathTo = path_to
+
+    def __call__(self, func):
+        @wraps(func)
+        def wrapper(grader):
+            solutionPath = next(grader.dirSubmission.iterdir())
+            archive = zipfile.ZipFile(solutionPath, 'r')
+
+            if self.pathTo is None:
+                self.pathTo = grader.testsDir
+
+            pathTo = Path(grader.cwd, self.pathTo)
+            pathTo.mkdir(parents=True, exist_ok=True)
+
+            try:
+                if self.filenames is None:
+                    archive.extractall(pathTo)
+                else:
+                    for file_name in self.filenames:
+                        archive.extract(file_name, pathTo)
+
+            except Exception as err:
+                grader.abortExecution(
+                    f'Grader Error. An error occurred while processing the archive '
+                    f'with the solution. {err.__class__.__name__}'
+                )
+
+            return func(grader)
+
+        return wrapper
+
+
 class CheckZipArchive:
     def __init__(self, filenames=None):
         if filenames is None:
