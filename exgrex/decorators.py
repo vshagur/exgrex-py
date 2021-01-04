@@ -1,11 +1,12 @@
+import importlib.util
+import shutil
+import unittest
 import zipfile
+from datetime import datetime
 from functools import wraps
 from pathlib import Path
-import unittest
-import shutil
+
 from exgrex.result import LogTestResult
-from datetime import datetime
-import importlib.util
 
 
 def _getTestSuite(grader):

@@ -17,8 +17,8 @@ verbosity=2, для каждого запущенного теста вывод�
 + сообщение об ошибке (message из assert + трейсбек, если включен)
 
 """
+from decimal import ROUND_DOWN, Decimal
 from unittest.result import TestResult, failfast
-from decimal import Decimal, ROUND_DOWN
 
 
 def _isAlreadyFailOrError(result, test):

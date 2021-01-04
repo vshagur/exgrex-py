@@ -33,7 +33,7 @@ teardown() {
   # delete the contents of the report file
   echo "" > $REPORT
   # delete destination file
-  rm $PWD/$PART_ID/tests/solution.py
+  rm -f $PWD/$PART_ID/tests/solution.py
   run bash -c "env partId=$PART_ID $COMMAND"
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
