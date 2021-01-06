@@ -82,19 +82,16 @@ fi
 # start testing student solution
 ########################################################################
 cd $EXGREX_DIR_GRADER
-# todo remake error stream output to file
 $EXGREX_TEST_RUN_COMMAND > /dev/null 2>&1
 
 ########################################################################
 # create report
 ########################################################################
 if [[ $? -eq 0 ]]; then
-  # todo add file existence check
   fractionalScore=$(<$EXGREX_SCORE_LOGFILE)
   feedback=$(<$EXGREX_FEEDBACK_LOGFILE)
   send_report "$fractionalScore" "$feedback"
 else
-  # todo add an error message to the output
   send_report 0 "Grader error. Runtime error occured. Please report the course staff."
 fi
 
