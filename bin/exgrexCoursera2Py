@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # todo add script description
+# need install bash, bc jq
 
 ########################################################################
 # Send report
@@ -95,9 +96,19 @@ if [[ $? -eq 0 ]]; then
     send_report 0 "Grader error. The log file with scores is empty. Please report the course staff."
   fi
 
-  feedback=$(<$EXGREX_FEEDBACK_LOGFILE)
+  if [[ -s $EXGREX_FEEDBACK_LOGFILE ]]; then
+    feedback=$(<$EXGREX_FEEDBACK_LOGFILE)
+  else
+    send_report 0 "Grader error. The log file with feedback is empty. Please report the course staff."
+  fi
 
-  send_report "$fractionalScore" "$feedback"
+  if [[ $(echo "$fractionalScore >= 0" | bc) -eq 1 ]] && \
+     [[ $(echo "$fractionalScore <= 1" | bc) -eq 1 ]]; then
+    send_report "$fractionalScore" "$feedback"
+  else
+    send_report 0 "Grader error. Invalid score received. Please report the course staff."
+  fi
+
 else
   send_report 0 "Grader error. Runtime error occured. Please report the course staff."
 fi
