@@ -35,13 +35,13 @@ fi
 ########################################################################
 # set environment variables
 ########################################################################
-if [[ "DEBUG" -eq 0 ]]; then
+if [[ "$DEBUG" -eq 0 ]]; then
   export EXGREX_DIR_SUBMISSION=$DIR_SUBMISSION
 else
   export EXGREX_DIR_SUBMISSION=$DEBUG_DIR_SUBMISSION
 fi
 
-if [[ "DEBUG" -eq 0 ]]; then
+if [[ "$DEBUG" -eq 0 ]]; then
   export EXGREX_PATH_TO_REPORT_FILE=$PATH_TO_REPORT_FILE
 else
   export EXGREX_PATH_TO_REPORT_FILE=$DEBUG_PATH_TO_REPORT_FILE
@@ -102,8 +102,8 @@ if [[ $? -eq 0 ]]; then
     send_report 0 "Grader error. The log file with feedback is empty. Please report the course staff."
   fi
 
-  if [[ $(echo "$fractionalScore >= 0" | bc) -eq 1 ]] && \
-     [[ $(echo "$fractionalScore <= 1" | bc) -eq 1 ]]; then
+  if [[ $(echo "$fractionalScore >= $MIN_SCORE" | bc) -eq 1 ]] && \
+     [[ $(echo "$fractionalScore <= $MAX_SCORE" | bc) -eq 1 ]]; then
     send_report "$fractionalScore" "$feedback"
   else
     send_report 0 "Grader error. Invalid score received. Please report the course staff."
