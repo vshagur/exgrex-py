@@ -88,8 +88,15 @@ $EXGREX_TEST_RUN_COMMAND > /dev/null 2>&1
 # create report
 ########################################################################
 if [[ $? -eq 0 ]]; then
-  fractionalScore=$(<$EXGREX_SCORE_LOGFILE)
+
+  if [[ -s $EXGREX_SCORE_LOGFILE ]]; then
+    fractionalScore=$(<$EXGREX_SCORE_LOGFILE)
+  else
+    send_report 0 "Grader error. The log file with scores is empty. Please report the course staff."
+  fi
+
   feedback=$(<$EXGREX_FEEDBACK_LOGFILE)
+
   send_report "$fractionalScore" "$feedback"
 else
   send_report 0 "Grader error. Runtime error occured. Please report the course staff."
