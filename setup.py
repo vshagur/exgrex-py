@@ -7,8 +7,8 @@ from setuptools import find_packages
 with open("README", "r") as fh:
     long_description = fh.read()
 
-setup(name='exgrex',
-      version='0.1.1',
+setup(name='exgrex-py',
+      version='0.2a1',
       description='Exgrex implementation for the Python programming language.',
       long_description=long_description,
       long_description_content_type="text/markdown",
@@ -27,5 +27,4 @@ setup(name='exgrex',
           "Intended Audience :: Developers :: Education",
           "Topic :: Education :: Testing"],
       python_requires='>=3.6',
-
       )
