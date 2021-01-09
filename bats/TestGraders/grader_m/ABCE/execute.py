@@ -14,5 +14,5 @@ def executeGrader(grader):
 
 if __name__ == '__main__':
     grader = UnittestGrader()
-    grader.task_name = "Example task."
+    grader.taskName = "Example task."
     executeGrader(grader)

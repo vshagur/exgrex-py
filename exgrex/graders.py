@@ -15,7 +15,7 @@ def createFileLogger(logger_name, filename, template):
 class UnittestGrader:
 
     def __init__(self):
-        self.task_name = None
+        self.taskName = None
         self.testResult = None
         self.totalTests = 0
         self.solutionFilename = 'solution.py'

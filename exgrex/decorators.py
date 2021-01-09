@@ -240,7 +240,7 @@ class RunUnittestTests:
                 pass_rate=self.passRate
             )
             grader.feedbackLogger.error(result.separator)
-            grader.feedbackLogger.error(f'Test result of the task: "{grader.task_name}"')
+            grader.feedbackLogger.error(f'Test result of the task: "{grader.taskName}"')
             grader.feedbackLogger.error(f'Attempt at {datetime.now().ctime()}.')
 
             try:
