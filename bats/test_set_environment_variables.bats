@@ -6,7 +6,7 @@ GRADER="grader_e"
 setup() {
   CWD="$PWD"
   REPORT="$PWD/TestGraders/$GRADER/shared/feedback.json"
-  COMMAND="$(dirname $PWD)/.env/bin/exgrexCoursera2Py"
+  COMMAND="$(dirname $PWD)/.env/bin/exgrexCourseraPy"
   cd "TestGraders/$GRADER"
 }
 

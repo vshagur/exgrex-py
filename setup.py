@@ -16,7 +16,7 @@ setup(name='exgrex',
       packages=find_packages(
           exclude=['tests', '*.test.*', '*.test', 'bats', '*.bats.*', '*.bats', ]
       ),
-      scripts=["bin/exgrexCourseraPy", "bin/exgrexCoursera2Py", ],
+      scripts=["bin/exgrexCourseraPy", ],
       keywords=['mooc', 'grader', 'python', 'python3', 'education', 'exgrex'],
       url='https://github.com/vshagur/exgrex-py',
       classifiers=[
