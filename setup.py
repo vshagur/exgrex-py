@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from distutils.core import setup
+
 from setuptools import find_packages
 
 with open("README", "r") as fh:

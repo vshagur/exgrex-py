@@ -1,10 +1,9 @@
 import os
-from pathlib import Path
 from logging import Logger
+from pathlib import Path
+from unittest import TestCase, mock
 
 import pytest
-from unittest import mock
-from unittest import TestCase
 
 from exgrex.graders import UnittestGrader
 
