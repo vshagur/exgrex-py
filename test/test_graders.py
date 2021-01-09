@@ -52,14 +52,14 @@ def test_initialization_unittestgrader_attributes(mock_settings_env_vars, delete
     assert grader.solutionFilename == 'solution.py'
 
 
-def test_unittestgrader_abortExecution_method_calls_sys_exit(grader):
+def test_unittestgrader_abortExecution_method_calls_sys_exit(grader, delete_logfile):
     with mock.patch('sys.exit') as exit_mock:
         grader.abortExecution('feedback message')
         exit_mock.assert_called()
         exit_mock.assert_called_with(0)
 
 
-def test_unittestgrader_abortExecution_method_write_score_log(grader):
+def test_unittestgrader_abortExecution_method_write_score_log(grader, delete_logfile):
     with mock.patch('sys.exit') as exit_mock:
         with TestCase().assertLogs('scoreLogger', level='ERROR') as cm:
             grader.abortExecution('feedback message')
@@ -67,7 +67,7 @@ def test_unittestgrader_abortExecution_method_write_score_log(grader):
     assert cm.output == ['ERROR:scoreLogger:0', ]
 
 
-def test_unittestgrader_abortExecution_method_write_feedback_log(grader):
+def test_unittestgrader_abortExecution_method_write_feedback_log(grader, delete_logfile):
     with mock.patch('sys.exit') as exit_mock:
         with TestCase().assertLogs('feedbackLogger', level='ERROR') as cm:
             grader.abortExecution('feedback message')
