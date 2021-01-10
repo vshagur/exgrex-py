@@ -5,6 +5,7 @@
 ![](https://img.shields.io/static/v1?label=Python&message=3.6&color=blue)
 ![](https://img.shields.io/static/v1?label=OS&message=linux&color=blue)
 ![](https://img.shields.io/github/license/vshagur/exgrex)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/vshagur/exgrex-py)
 
 ## Documentation
 - [История создания пакета](https://github.com/vshagur/exgrex-py/blob/docs/docs/history.md)
