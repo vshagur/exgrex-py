@@ -1,12 +1,11 @@
 import sys
 
-from exgrex.decorators import (GlueFiles,
-                               RunUnittestTests)
+from exgrex.decorators import CheckSubmissionFilename, RunUnittestTests
 from exgrex.graders import UnittestGrader
 from exgrex.result import LogTestResult
 
 
-@GlueFiles(prefix_file_path='before.txt', postfix_file_path='after.txt')
+@CheckSubmissionFilename('solution.py')
 @RunUnittestTests(
     test_result_class=LogTestResult, failfast=False, traceback=False, verbosity=0,
     pass_rate=0.5
