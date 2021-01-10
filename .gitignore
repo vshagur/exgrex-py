@@ -2,7 +2,8 @@
 test/template*
 .idea/
 */feedback.json
-*/score.json
+bats/TestGraders/grader_[abcdefhgjkm]/shared/feedback.json
+bats/TestGraders/grader_[abcdefhgjkm]/shared/score.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
