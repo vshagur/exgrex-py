@@ -15,7 +15,7 @@ setup(name='exgrex-py',
       author='vshagur',
       author_email='vshagur@gmail.com',
       packages=find_packages(
-          exclude=['tests', '*.test.*', '*.test', 'bats', '*.bats.*', '*.bats', ]
+          exclude=['test', '*.test.*', '*.test', 'bats', '*.bats.*', '*.bats', ]
       ),
       package_data={
           'docs': ['docs/*.md'],
