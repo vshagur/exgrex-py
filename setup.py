@@ -11,7 +11,7 @@ setup(name='exgrex-py',
       version='0.2a1',
       description='Exgrex implementation for the Python programming language.',
       long_description=long_description,
-      long_description_content_type="text/markdown",
+      long_description_content_type="text/x-rst",
       author='vshagur',
       author_email='vshagur@gmail.com',
       packages=find_packages(
@@ -27,8 +27,6 @@ setup(name='exgrex-py',
       classifiers=[
           "Programming Language :: Python :: 3",
           "License :: OSI Approved :: MIT License",
-          "Operating System :: POSIX :: Linux",
-          "Intended Audience :: Developers :: Education",
-          "Topic :: Education :: Testing"],
+          "Operating System :: POSIX :: Linux",],
       python_requires='>=3.6',
       )
