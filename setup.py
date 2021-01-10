@@ -17,8 +17,12 @@ setup(name='exgrex-py',
       packages=find_packages(
           exclude=['tests', '*.test.*', '*.test', 'bats', '*.bats.*', '*.bats', ]
       ),
+      package_data={
+          'docs': ['docs/*.md'],
+          'example': ['example/execute_py', 'example/grader.config']
+      },
       scripts=["bin/exgrexCourseraPy", ],
-      keywords=['mooc', 'grader', 'python', 'python3', 'education', 'exgrex'],
+      keywords=['mooc', 'grader', 'python', 'python3', 'education', 'exgrex', 'coursera'],
       url='https://github.com/vshagur/exgrex-py',
       classifiers=[
           "Programming Language :: Python :: 3",
