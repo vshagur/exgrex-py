@@ -8,7 +8,7 @@ with open("README", "r") as fh:
     long_description = fh.read()
 
 setup(name='exgrex-py',
-      version='0.2a1',
+      version='0.2a2',
       description='Exgrex implementation for the Python programming language.',
       long_description=long_description,
       long_description_content_type="text/x-rst",
