@@ -23,7 +23,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   #  check score string
-  [ ${lines[1]} = '  "fractionalScore": "0.44",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0.44,' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]
@@ -67,7 +67,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   #  check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]
@@ -109,7 +109,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   #  check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]
@@ -152,7 +152,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   #  check score string
-  [ ${lines[1]} = '  "fractionalScore": "0.44",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0.44,' ]
   # check title
   run bash -c "grep -E \".*feedback.*Test result of the task.*Example task.*Attempt at.*\" $REPORT"
   [ "$status" = 0 ]

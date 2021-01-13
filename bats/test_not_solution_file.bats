@@ -22,7 +22,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check feedback string
   [ ${lines[2]} = '  "feedback": "Solution file not found. Please attach the required file."' ]
 }

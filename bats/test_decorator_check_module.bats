@@ -22,7 +22,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check message
   run bash -c "grep -E \"Grader Error. An attempt to import the solution file as a module failed. Error: invalid syntax \(solution.py, line 1\).\" $REPORT"
   [ "$status" = 0 ]

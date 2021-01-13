@@ -1,4 +1,4 @@
 {
-  "fractionalScore": "0",
+  "fractionalScore": 0,
   "feedback": "Grader Error. An attempt to import the solution file as a module failed. Error: invalid syntax (solution.py, line 1)."
 }

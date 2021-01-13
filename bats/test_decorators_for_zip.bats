@@ -22,7 +22,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check message
   run bash -c "grep -E \"Grader Error. The solution archive should contain the file: solution.js.\" $REPORT"
   [ "$status" = 0 ]

@@ -21,7 +21,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check feedback string
   [ ${lines[2]} = '  "feedback": "Grader error. Environment variable partId is not set. Please report the course staff."' ]
 }
@@ -34,7 +34,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check feedback string
   [ ${lines[2]} = '  "feedback": "Grader error. No partId matched. Please report the course staff."' ]
 }

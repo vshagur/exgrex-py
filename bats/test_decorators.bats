@@ -22,7 +22,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check title
   run bash -c "grep -E \"Error. Invalid solution file name: solution.py. The file must be named solution_name.py.\" $REPORT"
   [ "$status" = 0 ]
@@ -38,7 +38,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 1,' ]
   # check file created
   [ -f $PWD/$PART_ID/tests/solution.py ]
   # check content
@@ -67,7 +67,7 @@ teardown() {
   [ "$status" = 0 ]
   # check score string
   run bash -c "cat $REPORT"
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check file not created
   [ ! -f $PWD/$PART_ID/some_dir/some_file.py ]
   # check title
@@ -85,7 +85,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check title
   run bash -c "grep -E \"Grader error. No tests loaded. Please report to course staff.\" $REPORT"
   [ "$status" = 0 ]
@@ -99,7 +99,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 1,' ]
   # check title
   run bash -c "grep -E \"Passed. Score: 50 points out of 100.\" $REPORT"
   [ "$status" = 0 ]
@@ -117,7 +117,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0.44",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0.44,' ]
   # check title
   run bash -c "grep -E \"Not passed. Score: 44 points out of 100.\" $REPORT"
   [ "$status" = 0 ]
@@ -133,7 +133,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check title
   run bash -c "grep -E \"Not passed. Try again\" $REPORT"
   [ "$status" = 0 ]
@@ -178,7 +178,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "1.0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 1,' ]
   # check content solution file
   run bash -c "cat $PWD/$PART_ID/tests/solution.py"
   [ ${lines[0]} = '# before.txt' ]
@@ -217,7 +217,7 @@ teardown() {
   [ "$status" = 0 ]
   run bash -c "cat $REPORT"
   # check score string
-  [ ${lines[1]} = '  "fractionalScore": "0",' ]
+  [ ${lines[1]} = '  "fractionalScore": 0,' ]
   # check message
   run bash -c "grep -E \"Grader Error. Submission should be zip archive.\" $REPORT"
   [ "$status" = 0 ]
