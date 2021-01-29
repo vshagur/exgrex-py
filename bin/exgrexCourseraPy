@@ -27,6 +27,27 @@ function send_report {
 }
 
 ########################################################################
+# get partId value from command line parameters(required to support autograder 1)
+########################################################################
+# Taken from example code for version 1
+# https://github.com/coursera/programming-assignments-demo/blob/master/custom-graders/DemoJavaGrader/GraderFiles/executeGrader.sh
+while [[ $# > 1 ]]
+  do
+    key="$1"
+    case $key in
+      partId)
+        partId="$2"
+        shift
+        ;;
+      filename)
+        ORIGINAL_FILENAME="$2"
+        shift
+        ;;
+    esac
+  shift
+done
+
+########################################################################
 # get settings
 ########################################################################
 config='grader.config'
